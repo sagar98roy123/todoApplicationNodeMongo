@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%=pageTitle%></title>
+    </head>
+    <body>
+        <main>
+            <% if (todos.length > 0) { %>
+                <div class="grid">
+                    <% for (let todo of todos) { %>
+                        <article class="card product-item">
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    <%= todo.title %>
+                                </h1>
+                            </header>
+                            <div class="card__content">
+                                <p class="product__description">
+                                    <%= todo.description %>
+                                </p>
+                                <p>Date:<%= todo.date.getHours()%> </p>
+                                <% if((todo.date.getDate()-new Date().getDate())==0){%>
+                                    <p> Today  
+                                    </p>
+                                <% } else { %>
+                                <p>
+                                    <%= Math.abs(todo.date.getDate()-new Date().getDate())%> Days 
+                                    <% if((todo.date.getDate()-new Date().getDate())>0){%> Left
+                                    <% } if((todo.date.getDate()-new Date().getDate())<0) {%> Overdue
+                                        <% }%>
+                                </p>
+                                <% } %>
+                                <p><%= todo.list%></p>
+                            </div>
+                            <div class="card__actions">
+                                <form action="/user/delete-todo" method="POST">
+                                    <input type="hidden" value="<%= todo._id %>" name="productId">
+                                    <button class="btn" type="submit">Delete</button>
+                                </form>
+
+                            </div>
+                        </article>
+                        <% } %>
+                </div>
+                <% } else { %>
+                    <h1>No Todos Found!</h1>
+                    <% } %>
+        </main>
+    </body>
+</html>

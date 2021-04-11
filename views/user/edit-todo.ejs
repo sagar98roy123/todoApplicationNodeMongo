@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=pageTitle%></title>
+</head>
+<body>
+    <main>
+        <form class="todo-form" action="/user/<% if (editing) { %>edit-todo<% } else { %>add-todo<% } %>" method="POST">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="<% if (editing) { %><%= product.title %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
+            </div>
+            <div class="form-control">
+                <label for="date">Enter the Date</label>
+                <input type="datetime-local" name="date" id="date" >
+            </div>
+            <div class="form-control">
+                <label for="list">Add to list</label>
+                <select name="list" id="list">
+                    <option value="default">Default</option>
+                    <option value="personal">Personal</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="wishlist">Wishlist</option>
+                    <option value="work">Work</option>
+                </select>
+            </div>
+            <% if (editing) { %>
+                <input type="hidden" value="<%= product._id %>" name="productId">
+            <% } %>
+
+            <button class="btn" type="submit"><% if (editing) { %>Update Product<% } else { %>Add Product<% } %></button>
+        </form>
+    </main>
+</body>
+</html>
